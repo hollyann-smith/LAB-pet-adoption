@@ -1,0 +1,18 @@
+ #app {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: blueviolet;
+  text-align: center;
+  flex-basis: 33.333333%;
+  justify-content: center;
+  font-family:monospace;
+}
+
+#square {
+  margin: 20px 20px;
+}
+
+.card-header {
+  font-weight: bold;
+  background-color: rgb(37, 39, 41);
+}
