@@ -241,29 +241,184 @@ const pets = [
     }
   ];
 
-  const app = document.querySelector("#app")
+
+const renderToDom = (array) => {
 
   let domString = ""
 
+for(pet of array){
+  domString += `<div id="square">
+  <div class="card" style="width: 18rem;">
+  <div class="card-header">
+  <h3>${pet.name}</h3>
+  </div>
+  <img src=${pet.imageUrl} class="card-img-top" alt=${pet.name}>
+  <div class="card-body">
+    <p class="card-text">${pet.color}</p>
+    <p class="card-text">${pet.specialSkill}</p>
+  </div>
+  <div class="card-footer" id=${pet.type}>
+  ${pet.type}
+</div>
+<button class="btn btn-danger" id="delete-- ${pet.id}">Delete</button>
+</div>
+</div>`
+}
+
+app.innerHTML = domString
+
+}
 
 
-  for (pet of pets) {
+//REUSABLE FILTER FUNCTION
+    const filter = (type) => {
+
+      const filteredArray = []
+      for(pet of pets){
+          if(pet.type === type){
+            filteredArray.push(pet)
+        }
+      }
+      renderToDom(filteredArray)
+    }
+
+
+
+
+
+const events = () => {
+  
+//PULLING DATA FROM HTML
+  const app = document.querySelector("#app")
+  const form = document.querySelector("form")
+  const filterButtons = document.querySelector("#filter-buttons")
+
+
+//CREATE NEW PET CARD  
+  form.addEventListener('submit',  (event) => {
+    event.preventDefault()
     
-    domString += `<div id="square">
-    <div class="card" style="width: 18rem;">
-    <div class="card-header">
-    ${pet.name}
-    </div>
-    <img src=${pet.imageUrl} class="card-img-top" alt=${pet.name}>
-    <div class="card-body">
-      <p class="card-text">${pet.color}</p>
-      <p class="card-text">${pet.specialSkill}</p>
-    </div>
-    <div class="card-footer">
-    ${pet.type}
-  </div>
-  </div>
-  </div>`;
+      const newPetObj ={
+        id: pets.length +1,
+        name: document.querySelector("#petName").value,
+        color: document.querySelector("#petColor").value,
+        specialSkill: document.querySelector("#petSkill").value,
+        type: document.querySelector('input[name="type"]:checked').id,
+        imageUrl: document.querySelector("#petImage").value
+      }
+
+      pets.push(newPetObj)
+      renderToDom(pets)
+      form.reset()
+
+    })
+//DELETE BUTTON
+    app.addEventListener("click", (event) => {
+      if(event.target.id.includes("delete")){
+
+        const [, id] = event.target.id.split("--");
+        const index = pets.findIndex(obj => obj.id === Number(id))
+       
+        pets.splice(index, 1)
+       
+        renderToDom(pets)
+       }
+    })
+
+//FILTER PET BUTTONS  
+    filterButtons.addEventListener("click", (event) => {
+      const id = event.target.id 
+      const possibleTypes = ["cat", "dog", "dino"]
+ 
+      if(id === "all"){
+        renderToDom(pets)
+      } else if(possibleTypes.includes(id)){
+        filter(id)
+      }
+
+    })
+
+
   }
 
-  app.innerHTML = domString
+const startApp = () => {
+    
+  renderToDom(pets)
+  events()
+}
+
+startApp()
+
+
+
+
+
+
+
+//  const catButton = document.querySelector("#cat")
+// catButton.addEventListener("click", console.log("clicked cat"))
+
+
+//  const filter = () => {
+//   let sortPetArray = []
+
+//   for(pet of pets){
+//     if(pet.type === "cat"){
+//       sortPetArray.push(pet)
+//       }
+//   }
+//     renderToDom(sortPetArray)
+//  }
+
+// catButton.addEventListener('click', filter)
+
+
+// const dogButton = document.querySelector("#dog")
+
+// const filter2 = () => {
+//  let dogPetArray = []
+
+//  for(pet of pets){
+//    if(pet.type === "dog"){
+//      dogPetArray.push(pet)
+     
+//      }
+//  }
+//    renderToDom(dogPetArray)
+// }
+
+// dogButton.addEventListener('click', filter2)
+
+
+// const dinoButton = document.querySelector("#dino")
+
+// const filter3 = () => {
+//  let dinoPetArray = []
+
+//  for(pet of pets){
+//    if(pet.type === "dino"){
+//      dinoPetArray.push(pet)
+     
+//      }
+//  }
+//    renderToDom(dinoPetArray)
+// }
+
+// dinoButton.addEventListener('click', filter3)
+
+
+// const allButton = document.querySelector("#all")
+
+// const filter4 = () => {
+//  let allPetArray = []
+
+//  for(pet of pets){
+//    if(pet.type === "dino" || "cat" || "dog"){
+//      allPetArray.push(pet)
+     
+//      }
+//  }
+//    renderToDom(allPetArray)
+// }
+
+// allButton.addEventListener('click', filter4)

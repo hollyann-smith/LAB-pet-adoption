@@ -1,18 +1,88 @@
  #app {
   display: flex;
   flex-wrap: wrap;
-  background-color: rgb(186, 180, 192);
   text-align: center;
   flex-basis: 33.333333%;
   justify-content: center;
   font-family:monospace;
+background-color: rgb(46, 210, 155);
+}
+
+#filter-buttons {
+  display: flex;
+  justify-content: center;
+  margin: 50px;
+  column-gap: 20px;
+}
+
+#form-buttons {
+display:flex;
+justify-content: center;
 }
 
 #square {
   margin: 20px 20px;
+  border-radius: 15px;
+  background-color: rgb(46, 210, 155);
+}
+
+img {
+  max-width: 300px;
+  max-height: 200px;
+  border: 2px solid black;
 }
 
 .card-header {
   font-weight: bold;
-  background-color: rgb(37, 39, 41);
+  background-color: rgb(23, 55, 84);
+}
+
+.card-footer {
+  color: rgb(244, 230, 230);
+  font-weight: bold;
+  border: 2px solid black;
+}
+
+.card-body {
+  border: 2px solid black;
+}
+
+#dog {
+  background-color: rgb(141, 96, 182);
+  border: none;
+}
+
+#dino {
+  background-color: rgb(169, 214, 115);
+  border: none;
+}
+
+#cat {
+  background-color: rgb(58, 90, 146);
+  border: none;
+}
+
+form {
+  max-width: 400px;
+  max-height: 500px;
+  margin: 1px 10px;
+  border: 3px solid;
+  padding: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: antiquewhite;
+  border-radius: 10px;
+}
+
+.form-floating {
+  margin: 5px;
+}
+
+
+#body {
+background-color: aquamarine;
+}
+
+.card {
+  background-color: rgb(46, 210, 155);
 }
