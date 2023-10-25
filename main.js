@@ -241,7 +241,7 @@ const pets = [
     }
   ];
 
-
+//CREATE CARD DISPLAY
 const renderToDom = (array) => {
 
   let domString = ""
@@ -260,8 +260,8 @@ for(pet of array){
   <div class="card-footer" id=${pet.type}>
   ${pet.type}
 </div>
-<button class="btn btn-danger" id="delete-- ${pet.id}">Delete</button>
 </div>
+<button class="btn btn-danger" id="delete-- ${pet.id}">Delete</button>
 </div>`
 }
 
@@ -285,7 +285,7 @@ app.innerHTML = domString
 
 
 
-
+//ORGANIZED CODE INTO FUNCTIONS
 const events = () => {
   
 //PULLING DATA FROM HTML
@@ -348,77 +348,3 @@ const startApp = () => {
 }
 
 startApp()
-
-
-
-
-
-
-
-//  const catButton = document.querySelector("#cat")
-// catButton.addEventListener("click", console.log("clicked cat"))
-
-
-//  const filter = () => {
-//   let sortPetArray = []
-
-//   for(pet of pets){
-//     if(pet.type === "cat"){
-//       sortPetArray.push(pet)
-//       }
-//   }
-//     renderToDom(sortPetArray)
-//  }
-
-// catButton.addEventListener('click', filter)
-
-
-// const dogButton = document.querySelector("#dog")
-
-// const filter2 = () => {
-//  let dogPetArray = []
-
-//  for(pet of pets){
-//    if(pet.type === "dog"){
-//      dogPetArray.push(pet)
-     
-//      }
-//  }
-//    renderToDom(dogPetArray)
-// }
-
-// dogButton.addEventListener('click', filter2)
-
-
-// const dinoButton = document.querySelector("#dino")
-
-// const filter3 = () => {
-//  let dinoPetArray = []
-
-//  for(pet of pets){
-//    if(pet.type === "dino"){
-//      dinoPetArray.push(pet)
-     
-//      }
-//  }
-//    renderToDom(dinoPetArray)
-// }
-
-// dinoButton.addEventListener('click', filter3)
-
-
-// const allButton = document.querySelector("#all")
-
-// const filter4 = () => {
-//  let allPetArray = []
-
-//  for(pet of pets){
-//    if(pet.type === "dino" || "cat" || "dog"){
-//      allPetArray.push(pet)
-     
-//      }
-//  }
-//    renderToDom(allPetArray)
-// }
-
-// allButton.addEventListener('click', filter4)
