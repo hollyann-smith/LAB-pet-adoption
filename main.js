@@ -241,29 +241,110 @@ const pets = [
     }
   ];
 
-  const app = document.querySelector("#app")
+//CREATE CARD DISPLAY
+const renderToDom = (array) => {
 
   let domString = ""
 
+for(pet of array){
+  domString += `<div id="square">
+  <div class="card" style="width: 18rem;">
+  <div class="card-header">
+  <h3>${pet.name}</h3>
+  </div>
+  <img src=${pet.imageUrl} class="card-img-top" alt=${pet.name}>
+  <div class="card-body">
+    <p class="card-text">${pet.color}</p>
+    <p class="card-text">${pet.specialSkill}</p>
+  </div>
+  <div class="card-footer" id=${pet.type}>
+  ${pet.type}
+</div>
+</div>
+<button class="btn btn-danger" id="delete-- ${pet.id}">Delete</button>
+</div>`
+}
+
+app.innerHTML = domString
+
+}
 
 
-  for (pet of pets) {
+//REUSABLE FILTER FUNCTION
+    const filter = (type) => {
+
+      const filteredArray = []
+      for(pet of pets){
+          if(pet.type === type){
+            filteredArray.push(pet)
+        }
+      }
+      renderToDom(filteredArray)
+    }
+
+
+
+
+//ORGANIZED CODE INTO FUNCTIONS
+const events = () => {
+  
+//PULLING DATA FROM HTML
+  const app = document.querySelector("#app")
+  const form = document.querySelector("form")
+  const filterButtons = document.querySelector("#filter-buttons")
+
+
+//CREATE NEW PET CARD  
+  form.addEventListener('submit',  (event) => {
+    event.preventDefault()
     
-    domString += `<div id="square">
-    <div class="card" style="width: 18rem;">
-    <div class="card-header">
-    ${pet.name}
-    </div>
-    <img src=${pet.imageUrl} class="card-img-top" alt=${pet.name}>
-    <div class="card-body">
-      <p class="card-text">${pet.color}</p>
-      <p class="card-text">${pet.specialSkill}</p>
-    </div>
-    <div class="card-footer">
-    ${pet.type}
-  </div>
-  </div>
-  </div>`;
+      const newPetObj ={
+        id: pets.length +1,
+        name: document.querySelector("#petName").value,
+        color: document.querySelector("#petColor").value,
+        specialSkill: document.querySelector("#petSkill").value,
+        type: document.querySelector('input[name="type"]:checked').id,
+        imageUrl: document.querySelector("#petImage").value
+      }
+
+      pets.push(newPetObj)
+      renderToDom(pets)
+      form.reset()
+
+    })
+//DELETE BUTTON
+    app.addEventListener("click", (event) => {
+      if(event.target.id.includes("delete")){
+
+        const [, id] = event.target.id.split("--");
+        const index = pets.findIndex(obj => obj.id === Number(id))
+       
+        pets.splice(index, 1)
+       
+        renderToDom(pets)
+       }
+    })
+
+//FILTER PET BUTTONS  
+    filterButtons.addEventListener("click", (event) => {
+      const id = event.target.id 
+      const possibleTypes = ["cat", "dog", "dino"]
+ 
+      if(id === "all"){
+        renderToDom(pets)
+      } else if(possibleTypes.includes(id)){
+        filter(id)
+      }
+
+    })
+
+
   }
 
-  app.innerHTML = domString
+const startApp = () => {
+    
+  renderToDom(pets)
+  events()
+}
+
+startApp()
